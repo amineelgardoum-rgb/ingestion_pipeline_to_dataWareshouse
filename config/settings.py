@@ -1,75 +1,61 @@
 # Global Search Terms and Locations
 
 SEARCH_TERMS = [
-    # ── Data & Analytics ──────────────────────────────
-    "Data Engineer", "Data Analyst", "Data Scientist", "Analytics Engineer",
-    "ETL Developer", "Data Warehouse Engineer", "Big Data Engineer",
-    "Business Intelligence Developer", "Power BI Developer", "dbt Developer",
-    "Data Architect", "Data Governance", "Data Quality Engineer",
-    "Data Ops Engineer", "Reporting Analyst", "Tableau Developer",
-    "Looker Developer", "Qlik Developer", "Data Modeler", "Statistical Analyst",
+    # Data & Analytics
+    "Data Engineer", "Data Analyst", "Data Scientist",
+    "Business Intelligence Developer", "Power BI Developer", "Tableau Developer",
+    "ETL Developer", "Data Architect", "Analytics Engineer",
+    "Reporting Analyst", "Ingénieur Data",
 
-    # ── Cloud & Platform ──────────────────────────────
-    "Azure Data Engineer", "AWS Data Engineer", "GCP Data Engineer",
-    "Cloud Engineer", "Cloud Architect", "DevOps Engineer", "Platform Engineer",
-    "Site Reliability Engineer", "Kubernetes Engineer", "Terraform Engineer",
-    "Azure DevOps Engineer", "AWS Solutions Architect", "Cloud Infrastructure Engineer",
-    "FinOps Engineer",
+    # Cloud & DevOps
+    "Azure Data Engineer", "AWS Data Engineer", "DevOps Engineer",
+    "Cloud Engineer", "Site Reliability Engineer", "Terraform Engineer",
+    "Azure DevOps Engineer", "Ingénieur DevOps", "Ingénieur Cloud",
+    "Architecte Cloud",
 
-    # ── AI & Machine Learning ─────────────────────────
-    "AI Engineer", "ML Engineer", "Machine Learning Engineer", "NLP Engineer",
-    "Computer Vision Engineer", "MLOps Engineer", "Deep Learning Engineer",
-    "AI Research Scientist", "Generative AI Engineer", "LLM Engineer",
-    "Prompt Engineer", "AI Product Manager", "Reinforcement Learning Engineer",
+    # AI & Machine Learning
+    "AI Engineer", "ML Engineer", "Machine Learning Engineer",
+    "MLOps Engineer", "NLP Engineer", "Generative AI Engineer", "LLM Engineer",
 
-    # ── Software Engineering ──────────────────────────
-    "Backend Engineer", "Frontend Engineer", "Full Stack Developer",
-    "Software Engineer", "API Developer", "Microservices Engineer",
-    "Java Developer", "Python Developer", "Node.js Developer", ".NET Developer",
-    "React Developer", "Angular Developer", "Mobile Developer",
-    "Flutter Developer", "Kotlin Developer",
+    # Software Engineering
+    "Software Engineer", "Backend Engineer", "Full Stack Developer",
+    "Frontend Engineer", "Python Developer", "Java Developer",
+    ".NET Developer", "PHP Developer", "React Developer",
+    "Node.js Developer", "Mobile Developer",
+    "Développeur Full Stack", "Développeur Python", "Développeur Java",
+    "Développeur .NET", "Développeur PHP", "Développeur React",
+    "Développeur Node.js", "Développeur Mobile", "Développeur Angular",
+    "Lead Développeur", "Ingénieur Logiciel",
 
-    # ── Architecture & Leadership ─────────────────────
-    "Solution Architect", "Enterprise Architect", "Technical Lead",
-    "Engineering Manager", "CTO", "VP Engineering", "Software Architect",
-    "Integration Architect",
+    # Architecture & Leadership
+    "Solution Architect", "Technical Lead", "Engineering Manager",
+    "Architecte Logiciel", "Responsable Informatique",
+    "Directeur des Systèmes d'Information",
 
-    # ── Cybersecurity ─────────────────────────────────
-    "Cybersecurity Engineer", "Security Analyst", "Penetration Tester",
-    "SOC Analyst", "Cloud Security Engineer", "Application Security Engineer",
-    "SIEM Engineer", "Identity Access Management",
+    # Cybersecurity
+    "Cybersecurity Engineer", "Security Analyst", "SOC Analyst",
+    "Ingénieur Cybersécurité",
 
-    # ── Infrastructure & Networking ───────────────────
+    # Infrastructure & Networking
     "Network Engineer", "Infrastructure Engineer", "Systems Administrator",
-    "Linux Administrator", "Database Administrator", "Storage Engineer",
-    "Virtualization Engineer",
+    "Database Administrator", "Linux Administrator",
+    "Ingénieur Réseaux", "Ingénieur Systèmes",
 
-    # ── ERP & Business Systems ────────────────────────
-    "SAP Consultant", "SAP ABAP Developer", "Oracle ERP Consultant",
-    "Salesforce Developer", "Dynamics 365 Developer", "ServiceNow Developer",
-    "ERP Consultant",
+    # ERP & Business Systems
+    "SAP Consultant", "Salesforce Developer", "Dynamics 365 Developer",
+    "ServiceNow Developer", "Oracle ERP Consultant",
+    "Consultant SAP", "Développeur Salesforce",
 
-    # ── QA & Testing ──────────────────────────────────
-    "QA Engineer", "Test Automation Engineer", "Performance Engineer", "SDET",
+    # QA & Testing
+    "QA Engineer", "Test Automation Engineer",
+    "Ingénieur QA", "Testeur Logiciel",
 
-    # ── Product & Project ─────────────────────────────
-    "Product Manager", "Scrum Master", "Agile Coach", "Project Manager IT",
-    "Business Analyst", "Functional Analyst",
-
-    # ── Morocco-specific French terms ─────────────────
-    "Ingénieur Data", "Ingénieur Logiciel", "Développeur Full Stack",
-    "Ingénieur DevOps", "Architecte Cloud", "Consultant SAP",
-    "Chef de Projet IT", "Analyste Fonctionnel", "Ingénieur Cybersécurité",
-    "Développeur Python", "Développeur Java", "Développeur .NET", "Développeur PHP",
-    "Développeur React", "Développeur Mobile", "Développeur Angular",
-    "Développeur Node.js", "Ingénieur Cloud", "Ingénieur Réseaux",
-    "Ingénieur Systèmes", "Ingénieur QA", "Responsable Informatique",
-    "Directeur des Systèmes d'Information", "Architecte Logiciel",
-    "Lead Développeur", "Scrum Master", "Product Owner", "Testeur Logiciel",
-    "Développeur Salesforce", "Développeur ServiceNow",
+    # Product & Project
+    "Product Manager", "Business Analyst", "Scrum Master",
+    "Project Manager IT", "Functional Analyst", "Product Owner",
+    "Chef de Projet IT", "Analyste Fonctionnel",
 ]
-
-LOCATIONS = ["Morocco", "Casablanca", "Rabat", "Tanger", "Marrakech"]
+LOCATIONS = ["Casablanca", "Rabat", "Tanger", "Fès"]
 
 # Adzuna API Config
 ADZUNA_APP_ID = "774639e9"

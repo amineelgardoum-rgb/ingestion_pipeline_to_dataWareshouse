@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from src.collectors import indeed, rekrute, adzuna, emploi_ma, linkedin
+from src.collectors import indeed, rekrute,emploi_ma, linkedin
 from src.transformers import cleaner
 from src.utils.helpers import setup_logging
 
@@ -18,6 +18,8 @@ def run_full_pipeline():
     collectors = [
         ("indeed", indeed),
         ("rekrute", rekrute),
+        ("emploi_ma", emploi_ma),
+        ("linkedin", linkedin)
     ]
     
     for name, module in collectors:
