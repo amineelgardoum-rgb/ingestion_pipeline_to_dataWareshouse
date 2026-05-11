@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: core_jobs
+    description: "Unified incremental model combining all silver job sources, deduplicated by job_sk"
+    columns:
+      - name: job_sk
+        description: "Primary unique key, MD5 hash of job_url"
+      - name: source
+        description: "Source website: emploi_ma, rekrute, indeed"
+      - name: title
+        description: "Cleaned job title"
+      - name: company
+        description: "Company name"
+      - name: location
+        description: "Cleaned city or region"
+      - name: job_date
+        description: "Most recent posting date kept after deduplication"
+      - name: job_type
+        description: "Standardized contract type"
+      - name: is_remote
+        description: "Yes/No remote flag"
+      - name: description
+        description: "Job description, Unknown if not available"
+      - name: job_url
+        description: "Original job URL"

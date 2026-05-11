@@ -3,14 +3,15 @@ from pathlib import Path
 from src.collectors import indeed, rekrute,emploi_ma, linkedin
 from src.transformers import cleaner
 from src.utils.helpers import setup_logging
+import os 
 
 logger = setup_logging("pipeline")
 
 def run_full_pipeline():
     """Orchestrates the end-to-end data pipeline."""
-    project_root = Path(__file__).parent.parent
-    raw_dir = project_root / "data" / "raw"
-    processed_dir = project_root / "data" / "processed"
+    project_root = Path(os.getenv("DATA_DIR","./data"))
+    raw_dir = project_root / "raw"
+    processed_dir = project_root / "processed"
     
     raw_dir.mkdir(parents=True, exist_ok=True)
     processed_dir.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,12 @@
+version: 2
+
+macros:
+  - name: generate_schema_name
+    description: "Overrides dbt default schema naming behavior. If a custom schema is defined in the model config it uses that directly, otherwise falls back to the default target schema. This prevents dbt from appending the target schema as a prefix to custom schemas."
+    arguments:
+      - name: custom_schema_name
+        type: string
+        description: "Custom schema name defined in model config, e.g. silver, gold, snapshots. NULL if not defined."
+      - name: node
+        type: node
+        description: "dbt node object representing the current model being compiled. Required by dbt but not used in this override."

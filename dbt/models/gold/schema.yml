@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: golden_dim_test_date
+    description: "Date dimension table derived from core_test_jobs job_date"
+    columns:
+      - name: job_date
+        description: "Full date"
+      - name: day
+        description: "Day of month"
+      - name: month
+        description: "Month number"
+      - name: year
+        description: "Year number"
+      - name: quarter
+        description: "Quarter number 1 to 4"
+      - name: weekday
+        description: "Name of the weekday"
+
+  - name: golden_dim_test_job_type
+    description: "Job type dimension table with distinct contract types"
+    columns:
+      - name: job_type
+        description: "Distinct contract type: CDI, CDD, FREELANCE, STAGE, INTÉRIM"
+
+  - name: golden_dim_test_location
+    description: "Location dimension table with distinct cities or regions"
+    columns:
+      - name: location
+        description: "Distinct city or region name"
+
+  - name: golden_fact_test_jobs
+    description: "Fact table joining all dimensions with core job data"
+    columns:
+      - name: job_sk
+        description: "Primary key, MD5 hash of job_url"
+      - name: job_date
+        description: "Foreign key to date dimension"
+      - name: location
+        description: "Foreign key to location dimension"
+      - name: job_type
+        description: "Foreign key to job type dimension"
+      - name: source
+        description: "Source website"
+      - name: title
+        description: "Cleaned job title"
+      - name: company
+        description: "Company name"
+      - name: is_remote
+        description: "Yes/No remote flag"
+      - name: description
+        description: "Job description"
+      - name: job_url
+        description: "Original job URL"

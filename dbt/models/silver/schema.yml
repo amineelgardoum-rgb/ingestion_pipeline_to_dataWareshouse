@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: silver_emploi_ma_jobs
+    description: "Cleaned and standardized jobs scraped from emploi.ma"
+    columns:
+      - name: job_sk
+        description: "Unique hash key generated from job_url using MD5"
+      - name: source
+        description: "Source website, always emploi_ma"
+      - name: title
+        description: "Cleaned job title, lowercased, H/F removed, city extracted"
+      - name: city
+        description: "City extracted from title or first part of location"
+      - name: company
+        description: "Company name, NULL if empty"
+      - name: location
+        description: "Full location region from source"
+      - name: is_remote
+        description: "Yes if location contains International, No otherwise"
+      - name: job_type
+        description: "Standardized contract type: CDI, CDD, FREELANCE, STAGE, INTÉRIM"
+      - name: job_date
+        description: "Job posting date cast to DATE"
+      - name: job_url
+        description: "Original job URL used as business key"
+      - name: search_term
+        description: "Search term used to scrape this job"
+
+  - name: silver_rekrute_jobs
+    description: "Cleaned and standardized jobs scraped from rekrute.com"
+    columns:
+      - name: job_sk
+        description: "Unique hash key generated from job_url using MD5"
+      - name: source
+        description: "Source website, always rekrute"
+      - name: title
+        description: "Cleaned job title, lowercased, H/F and F/H removed"
+      - name: company
+        description: "Company name"
+      - name: location
+        description: "Cleaned location, lowercased"
+      - name: job_type
+        description: "Contract type from source"
+      - name: job_date
+        description: "Job posting date cast to DATE"
+      - name: job_url
+        description: "Original job URL used as business key"
+      - name: is_remote
+        description: "Hardcoded to No, not available in rekrute bronze"
+      - name: description
+        description: "Hardcoded to Unknown, not available in rekrute bronze"
+
+  - name: silver_indeed_jobs
+    description: "Cleaned and standardized jobs scraped from indeed.com"
+    columns:
+      - name: job_sk
+        description: "Unique hash key generated from job_url using MD5"
+      - name: source
+        description: "Source website, always indeed"
+      - name: title
+        description: "Cleaned job title, lowercased, H/F removed, city extracted"
+      - name: company
+        description: "Company name"
+      - name: location
+        description: "City extracted from location before first comma"
+      - name: job_type
+        description: "Contract type lowercased, Unknown if null"
+      - name: job_date
+        description: "Job posting date cast to DATE"
+      - name: job_url
+        description: "Original job URL used as business key"
+      - name: is_remote
+        description: "Mapped from True/False to Yes/No"
+      - name: description
+        description: "Full job description from indeed"

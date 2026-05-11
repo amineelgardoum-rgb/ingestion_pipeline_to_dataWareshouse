@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs Data Warehouse — Architecture</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 32px 24px; color: #1a1a1a; }
+    h1 { font-size: 20px; font-weight: 500; margin-bottom: 24px; color: #1a1a1a; }
+
+    .wrap { display: flex; flex-direction: column; gap: 6px; max-width: 960px; margin: 0 auto; }
+    .section { border-radius: 14px; border: 0.5px solid; overflow: hidden; }
+    .section-header { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 0.5px solid; }
+    .section-header i { font-size: 16px; }
+    .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
+    .section-body { display: flex; }
+    .card { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: opacity .15s; border-right: 0.5px solid; }
+    .card:last-child { border-right: none; }
+    .card:hover { opacity: 0.75; }
+    .card-top { display: flex; align-items: center; gap: 8px; }
+    .card-icon { font-size: 18px; flex-shrink: 0; }
+    .card-name { font-size: 12px; font-weight: 500; }
+    .card-sub { font-size: 11px; opacity: 0.6; }
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tag { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 20px; }
+    .tag i { font-size: 11px; }
+
+    .arrow { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 3px 0; }
+    .arrow i { font-size: 13px; color: #888; }
+    .arrow span { font-size: 10px; color: #888; font-style: italic; }
+
+    .s-src  { background: #fff; border-color: #ddd; }
+    .s-src  .section-header { background: #f5f5f5; border-color: #ddd; color: #555; }
+    .s-src  .card { border-color: #eee; color: #1a1a1a; }
+    .s-src  .tag { background: #eee; color: #555; }
+
+    .s-brz  { background: #FAEEDA; border-color: #EF9F27; }
+    .s-brz  .section-header { background: #FAC775; border-color: #EF9F27; color: #412402; }
+    .s-brz  .card { border-color: #EF9F2755; color: #412402; }
+    .s-brz  .card-sub { color: #854F0B; }
+    .s-brz  .tag { background: #FAC775; color: #412402; }
+
+    .s-sil  { background: #E6F1FB; border-color: #378ADD; }
+    .s-sil  .section-header { background: #B5D4F4; border-color: #378ADD; color: #042C53; }
+    .s-sil  .card { border-color: #378ADD44; color: #042C53; }
+    .s-sil  .card-sub { color: #185FA5; }
+    .s-sil  .tag { background: #B5D4F4; color: #042C53; }
+
+    .s-cor  { background: #EEEDFE; border-color: #7F77DD; }
+    .s-cor  .section-header { background: #CECBF6; border-color: #7F77DD; color: #26215C; }
+    .s-cor  .card { border-color: #7F77DD44; color: #26215C; }
+    .s-cor  .card-sub { color: #534AB7; }
+    .s-cor  .tag { background: #CECBF6; color: #26215C; }
+
+    .s-gld  { background: #EAF3DE; border-color: #639922; }
+    .s-gld  .section-header { background: #C0DD97; border-color: #639922; color: #173404; }
+    .s-gld  .card { border-color: #63992244; color: #173404; }
+    .s-gld  .card-sub { color: #3B6D11; }
+    .s-gld  .tag { background: #C0DD97; color: #173404; }
+
+    .s-snp  { background: #FAECE7; border-color: #D85A30; }
+    .s-snp  .section-header { background: #F5C4B3; border-color: #D85A30; color: #4A1B0C; }
+    .s-snp  .card { border-color: #D85A3044; color: #4A1B0C; }
+    .s-snp  .card-sub { color: #993C1D; }
+    .s-snp  .tag { background: #F5C4B3; color: #4A1B0C; }
+
+    .s-con  { background: #fff; border-color: #ddd; }
+    .s-con  .section-header { background: #f5f5f5; border-color: #ddd; color: #555; }
+    .s-con  .card { border-color: #eee; color: #1a1a1a; }
+    .s-con  .tag { background: #eee; color: #555; }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; color: #e5e5e5; }
+      h1 { color: #e5e5e5; }
+      .s-src { background: #1e1e1e; border-color: #333; }
+      .s-src .section-header { background: #2a2a2a; border-color: #333; color: #aaa; }
+      .s-src .card { border-color: #2a2a2a; color: #e5e5e5; }
+      .s-src .tag { background: #2a2a2a; color: #aaa; }
+      .s-brz { background: #2a1800; border-color: #BA7517; }
+      .s-brz .section-header { background: #412402; border-color: #BA7517; color: #FAC775; }
+      .s-brz .card { color: #FAC775; } .s-brz .card-sub { color: #EF9F27; }
+      .s-brz .tag { background: #412402; color: #FAC775; }
+      .s-sil { background: #021b33; border-color: #185FA5; }
+      .s-sil .section-header { background: #042C53; border-color: #185FA5; color: #B5D4F4; }
+      .s-sil .card { color: #B5D4F4; } .s-sil .card-sub { color: #85B7EB; }
+      .s-sil .tag { background: #042C53; color: #B5D4F4; }
+      .s-cor { background: #1a1640; border-color: #534AB7; }
+      .s-cor .section-header { background: #26215C; border-color: #534AB7; color: #CECBF6; }
+      .s-cor .card { color: #CECBF6; } .s-cor .card-sub { color: #AFA9EC; }
+      .s-cor .tag { background: #26215C; color: #CECBF6; }
+      .s-gld { background: #0e2102; border-color: #3B6D11; }
+      .s-gld .section-header { background: #173404; border-color: #3B6D11; color: #C0DD97; }
+      .s-gld .card { color: #C0DD97; } .s-gld .card-sub { color: #97C459; }
+      .s-gld .tag { background: #173404; color: #C0DD97; }
+      .s-snp { background: #2e1008; border-color: #993C1D; }
+      .s-snp .section-header { background: #4A1B0C; border-color: #993C1D; color: #F5C4B3; }
+      .s-snp .card { color: #F5C4B3; } .s-snp .card-sub { color: #F0997B; }
+      .s-snp .tag { background: #4A1B0C; color: #F5C4B3; }
+      .s-con { background: #1e1e1e; border-color: #333; }
+      .s-con .section-header { background: #2a2a2a; border-color: #333; color: #aaa; }
+      .s-con .card { border-color: #2a2a2a; color: #e5e5e5; }
+      .s-con .tag { background: #2a2a2a; color: #aaa; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Jobs data warehouse — architecture</h1>
+
+<div class="wrap">
+
+  <div class="section s-src">
+    <div class="section-header"><i class="ti ti-world"></i><span class="section-title">Data sources — Python scrapers</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-building card-icon"></i><div><div class="card-name">emploi.ma</div><div class="card-sub">Morocco job board</div></div></div><div class="tags"><span class="tag"><i class="ti ti-brand-python"></i>Python</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-briefcase card-icon"></i><div><div class="card-name">Rekrute</div><div class="card-sub">Morocco job board</div></div></div><div class="tags"><span class="tag"><i class="ti ti-brand-python"></i>Python</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-search card-icon"></i><div><div class="card-name">Indeed</div><div class="card-sub">Global job board</div></div></div><div class="tags"><span class="tag"><i class="ti ti-brand-python"></i>Python</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-link card-icon"></i><div><div class="card-name">LinkedIn</div><div class="card-sub">Professional network</div></div></div><div class="tags"><span class="tag"><i class="ti ti-brand-python"></i>Python</span></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><i class="ti ti-arrow-down"></i><span>pipeline.py → main.py → BULK INSERT</span></div>
+
+  <div class="section s-brz">
+    <div class="section-header"><i class="ti ti-database"></i><span class="section-title">Bronze — raw data · SQL Server</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-table card-icon"></i><div><div class="card-name">emploi_ma_jobs</div><div class="card-sub">No transforms</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-file-text"></i>NVARCHAR(MAX)</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-table card-icon"></i><div><div class="card-name">rekrute_jobs</div><div class="card-sub">No transforms</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-file-text"></i>NVARCHAR(MAX)</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-table card-icon"></i><div><div class="card-name">indeed_jobs</div><div class="card-sub">No transforms</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-file-text"></i>NVARCHAR(MAX)</span></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><i class="ti ti-arrow-down"></i><span>dbt run · {{ source('bronze','...') }}</span></div>
+
+  <div class="section s-sil">
+    <div class="section-header"><i class="ti ti-filter"></i><span class="section-title">Silver — cleaned data · SQL Server · dbt table</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-sparkles card-icon"></i><div><div class="card-name">silver_emploi_ma_jobs</div><div class="card-sub">city, job_type, H/F</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-adjustments"></i>dbt table</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-sparkles card-icon"></i><div><div class="card-name">silver_rekrute_jobs</div><div class="card-sub">title, location</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-adjustments"></i>dbt table</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-sparkles card-icon"></i><div><div class="card-name">silver_indeed_jobs</div><div class="card-sub">is_remote, city</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-adjustments"></i>dbt table</span></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><i class="ti ti-arrow-down"></i><span>dbt run · UNION ALL · MD5 job_sk · ROW_NUMBER dedup</span></div>
+
+  <div class="section s-cor">
+    <div class="section-header"><i class="ti ti-layers-intersect"></i><span class="section-title">Core — unified · SQL Server · dbt incremental</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-stack card-icon"></i><div><div class="card-name">core_jobs</div><div class="card-sub">All sources merged</div></div></div><div class="tags"><span class="tag"><i class="ti ti-server"></i>SQL Server</span><span class="tag"><i class="ti ti-adjustments"></i>dbt incremental</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-copy-off card-icon"></i><div><div class="card-name">Deduplication</div><div class="card-sub">ROW_NUMBER by job_sk</div></div></div><div class="tags"><span class="tag"><i class="ti ti-hash"></i>MD5 hash key</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-shield-check card-icon"></i><div><div class="card-name">dbt tests</div><div class="card-sub">unique, not_null</div></div></div><div class="tags"><span class="tag"><i class="ti ti-check"></i>generic</span><span class="tag"><i class="ti ti-code"></i>singular</span></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><i class="ti ti-arrow-down"></i><span>dbt run · {{ ref('core_jobs') }} · star schema</span></div>
+
+  <div class="section s-gld">
+    <div class="section-header"><i class="ti ti-star"></i><span class="section-title">Gold — star schema · SQL Server · dbt view</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-calendar card-icon"></i><div><div class="card-name">dim_date</div><div class="card-sub">day, month, quarter</div></div></div><div class="tags"><span class="tag"><i class="ti ti-adjustments"></i>dbt view</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-map-pin card-icon"></i><div><div class="card-name">dim_location</div><div class="card-sub">cities, regions</div></div></div><div class="tags"><span class="tag"><i class="ti ti-adjustments"></i>dbt view</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-tag card-icon"></i><div><div class="card-name">dim_job_type</div><div class="card-sub">CDI, CDD, FREELANCE</div></div></div><div class="tags"><span class="tag"><i class="ti ti-adjustments"></i>dbt view</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-table card-icon"></i><div><div class="card-name">fact_jobs</div><div class="card-sub">job_sk, source, title</div></div></div><div class="tags"><span class="tag"><i class="ti ti-adjustments"></i>dbt view</span></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><i class="ti ti-arrow-down"></i><span>dbt snapshot · SCD Type 2 · check_cols strategy</span></div>
+
+  <div class="section s-snp">
+    <div class="section-header"><i class="ti ti-history"></i><span class="section-title">Snapshots — SCD Type 2 · dbt snapshot</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-clock card-icon"></i><div><div class="card-name">snap_core_jobs</div><div class="card-sub">job_type, location</div></div></div><div class="tags"><span class="tag"><i class="ti ti-clock"></i>dbt snapshot</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-clock card-icon"></i><div><div class="card-name">snap_emploi_ma</div><div class="card-sub">contract changes</div></div></div><div class="tags"><span class="tag"><i class="ti ti-clock"></i>dbt snapshot</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-clock card-icon"></i><div><div class="card-name">snap_indeed</div><div class="card-sub">is_remote changes</div></div></div><div class="tags"><span class="tag"><i class="ti ti-clock"></i>dbt snapshot</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-clock card-icon"></i><div><div class="card-name">snap_rekrute</div><div class="card-sub">location changes</div></div></div><div class="tags"><span class="tag"><i class="ti ti-clock"></i>dbt snapshot</span></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><i class="ti ti-arrow-down"></i><span>BI tools connect to gold layer</span></div>
+
+  <div class="section s-con">
+    <div class="section-header"><i class="ti ti-chart-bar"></i><span class="section-title">Consumption layer</span></div>
+    <div class="section-body">
+      <div class="card"><div class="card-top"><i class="ti ti-chart-pie card-icon"></i><div><div class="card-name">Power BI</div><div class="card-sub">Dashboards, reports</div></div></div><div class="tags"><span class="tag"><i class="ti ti-chart-bar"></i>Visualization</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-file-description card-icon"></i><div><div class="card-name">dbt docs</div><div class="card-sub">Lineage, docs site</div></div></div><div class="tags"><span class="tag"><i class="ti ti-git-branch"></i>Lineage graph</span></div></div>
+      <div class="card"><div class="card-top"><i class="ti ti-code card-icon"></i><div><div class="card-name">dbt analyses</div><div class="card-sub">Ad-hoc SQL queries</div></div></div><div class="tags"><span class="tag"><i class="ti ti-terminal"></i>dbt compile</span></div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

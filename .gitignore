@@ -8,7 +8,7 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-
+/logs
 .env
 data/raw
 data/processed 
@@ -17,5 +17,17 @@ __pycache__
 .virtualenv
 __init__.py
 .venv
+
+target/
+dbt_packages/
+logs/
+profiles.yml
+.user.yml
+.venv
+*.py
+*.pptx
+__pycache__
+
+docs/guide_dbt.pdf
 
 data

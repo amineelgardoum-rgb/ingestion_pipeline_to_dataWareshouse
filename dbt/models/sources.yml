@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw data loaded by Python scrapers, no transformations applied"
+    schema: bronze
+    tables:
+
+      - name: emploi_ma_jobs
+        description: "Raw job postings scraped from emploi.ma"
+        columns:
+          - name: source
+            description: "Source website, always emploi_ma"
+          - name: title
+            description: "Raw job title, may contain city and H/F indicators"
+          - name: company
+            description: "Raw company name"
+          - name: location
+            description: "Raw location, may contain multiple regions separated by dashes"
+          - name: contract
+            description: "Raw contract type, may contain multiple types or incorrect data"
+          - name: date_posted
+            description: "Raw posting date as string YYYY-MM-DD"
+          - name: job_url
+            description: "Original job posting URL, unique key"
+          - name: search_term
+            description: "Search term used by scraper to find this job"
+
+      - name: rekrute_jobs
+        description: "Raw job postings scraped from rekrute.com"
+        columns:
+          - name: source
+            description: "Source website, always rekrute"
+          - name: title
+            description: "Raw job title"
+          - name: company
+            description: "Raw company name"
+          - name: location
+            description: "Raw location"
+          - name: job_type
+            description: "Raw contract type"
+          - name: date_posted
+            description: "Raw posting date as string"
+          - name: job_url
+            description: "Original job posting URL, unique key"
+
+      - name: indeed_jobs
+        description: "Raw job postings scraped from indeed.com"
+        columns:
+          - name: site
+            description: "Source website, always indeed"
+          - name: title
+            description: "Raw job title"
+          - name: company
+            description: "Raw company name"
+          - name: location
+            description: "Raw location, city and country separated by comma"
+          - name: job_type
+            description: "Raw contract type"
+          - name: is_remote
+            description: "Raw remote flag as True/False string"
+          - name: description
+            description: "Full job description text"
+          - name: date_posted
+            description: "Raw posting date as string"
+          - name: job_url
+            description: "Original job posting URL, unique key"

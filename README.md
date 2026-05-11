@@ -14,7 +14,7 @@ This project is a multi-source data pipeline designed to scrape, clean, and stor
 
 ## Project Overview
 
-The goal of this project is to automate the collection of job postings for specific search terms (e.g., "Data Engineer", "Data Scientist", "Data Analyst") in Morocco. The collected data is processed through a cleaning pipeline and prepared for ingestion into a Data Warehouse.
+The goal of this project is to automate the collection of job postings for specific search terms (e.g., "Data Engineer", "Data Scientist", "Data Analyst") in Morocco. The collected data is processed through a cleaning pipeline and prepared for ingestion into a Data Warehouse. <!-- rumdl-disable-line MD013 -->
 
 ## Pipeline Architecture
 

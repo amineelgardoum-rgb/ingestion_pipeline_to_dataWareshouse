@@ -1,0 +1,11 @@
+numpy>=2.0.0
+pandas
+pydantic
+requests
+beautifulsoup4
+markdownify
+regex
+tls-client
+pymssql
+dbt-sqlserver
+python-jobspy
