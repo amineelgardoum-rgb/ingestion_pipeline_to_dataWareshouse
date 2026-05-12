@@ -26,3 +26,4 @@ RUN pip install --upgrade pip && \
         dbt-core \
         dbt-sqlserver && \
     pip install python-jobspy --no-deps
+  

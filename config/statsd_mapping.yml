@@ -1,0 +1,104 @@
+mappings:
+  - match: "*.scheduler_heartbeat"
+    match_metric_type: counter
+    name: "af_agg_scheduler_heartbeat"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.ti_failures"
+    match_metric_type: counter
+    name: "af_agg_ti_failures"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.ti_successes"
+    match_metric_type: counter
+    name: "af_agg_ti_successes"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.ti.start.*.*"
+    match_metric_type: counter
+    name: "af_agg_ti_start"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+      task_id: "$3"
+
+  - match: "*.ti.finish.*.*.*"
+    match_metric_type: counter
+    name: "af_agg_ti_finish"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+      task_id: "$3"
+      state: "$4"
+
+  - match: "*.dagbag_size"
+    match_metric_type: gauge
+    name: "af_agg_dagbag_size"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.executor.open_slots"
+    match_metric_type: gauge
+    name: "af_agg_executor_open_slots"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.executor.queued_tasks"
+    match_metric_type: gauge
+    name: "af_agg_executor_queued_tasks"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.executor.running_tasks"
+    match_metric_type: gauge
+    name: "af_agg_executor_running_tasks"
+    labels:
+      airflow_id: "$1"
+
+  - match: "*.dagrun.duration.success.*"
+    match_metric_type: observer
+    name: "af_agg_dagrun_duration_success"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+
+  - match: "*.dagrun.duration.failed.*"
+    match_metric_type: observer
+    name: "af_agg_dagrun_duration_failed"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+
+  - match: "*.dagrun.schedule_delay.*"
+    match_metric_type: observer
+    name: "af_agg_dagrun_schedule_delay"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+
+  - match: "*.dag.*.*.duration"
+    match_metric_type: observer
+    name: "af_agg_dag_task_duration"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+      task_id: "$3"
+
+  - match: "(.+)\\.(.+)_start$"
+    match_type: regex
+    match_metric_type: counter
+    name: "af_agg_job_start"
+    labels:
+      airflow_id: "$1"
+      job_name: "$2"
+
+  - match: "(.+)\\.(.+)_end$"
+    match_type: regex
+    match_metric_type: counter
+    name: "af_agg_job_end"
+    labels:
+      airflow_id: "$1"
+      job_name: "$2"

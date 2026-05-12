@@ -1,0 +1,7 @@
+dbt-fusion 2.0.0-preview.175
+
+=================== Errors and Warnings ====================
+error: dbt1005: 'log-path' cannot be specified in dbt_project.yml
+
+==================== Execution Summary =====================
+Finished 'run' with 1 error [267ms]
