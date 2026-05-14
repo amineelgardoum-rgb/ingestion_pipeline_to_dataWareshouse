@@ -349,7 +349,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    command: bash -c "cd /opt/airflow/dbt && dbt docs serve --port 8082 --no-browser"
+    command: bash -c "cd /opt/airflow/dbt && dbt docs serve --port 8082 --no-browser --host 0.0.0.0"
     ports:
       - "8082:8082"
     volumes:
