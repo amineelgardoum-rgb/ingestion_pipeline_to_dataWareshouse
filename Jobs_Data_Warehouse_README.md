@@ -207,7 +207,7 @@ http://localhost:8082
 
 ## Prometheus
 
-![Prometheus](docs/prometheus/prometheus.png)
+![Prometheus](docs/screenshots/prometheus.png)
 
 
 ## Airflow Screenshots
