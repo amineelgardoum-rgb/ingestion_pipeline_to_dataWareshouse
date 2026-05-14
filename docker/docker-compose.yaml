@@ -346,23 +346,20 @@ services:
       airflow-init:
         condition: service_completed_successfully
   dbt-docs:
-    build: 
+    build:
       context: ..
       dockerfile: docker/Dockerfile
-    command: bash -c "cd /opt/airflow/dbt/target && python -m http.server 8082 --bind 0.0.0.0"
+    command: bash -c "cd /opt/airflow/dbt && dbt docs serve --port 8082 --no-browser"
     ports:
       - "8082:8082"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-..}/dbt:/opt/airflow/dbt
-    user: "${AIRFLOW_UID:-50000}:0"
-    depends_on:
-      - airflow-worker
 
   statsd-exporter:
     image: prom/statsd-exporter:latest
     command:
-      - "--statsd.listen-udp=:9125"
-      - "--statsd.listen-tcp=:9125"
+      - "--statsd.listen-udp=:8125"
+      - "--statsd.listen-tcp=:8125"
       - "--web.listen-address=:9102"
       - "--statsd.mapping-config=/tmp/statsd_mapping.yml"
     ports:
