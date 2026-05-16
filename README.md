@@ -230,10 +230,7 @@ http://localhost:8082
 
 ## Power BI Dashboard Screenshots
 
-```text
-docs/screenshots/powerbi/
-```
-
+![PowerBi Dashbaord](docs/screenshots/powerbi/image.png)
 ---
 
 # 🤖 NL2SQL Assistant
