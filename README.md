@@ -3,6 +3,7 @@
 An end-to-end modern **Data Engineering Platform** that collects job listings from multiple online sources, processes and standardizes the data using an **ELT architecture**, and transforms it into a scalable **Medallion Data Warehouse** using **Apache Airflow**, **dbt**, and **Microsoft SQL Server**.
 
 The platform also provides:
+
 - 📊 Business Intelligence dashboards with **Power BI**
 - 🤖 An **NL2SQL AI Assistant** powered by **FastAPI + LangGraph**
 - 📈 Full pipeline monitoring using **Prometheus**, **StatsD**, and **Grafana**
@@ -17,19 +18,20 @@ This project automates the collection, processing, transformation, and analysis 
 The architecture follows a **Batch ELT (Extract → Load → Transform)** approach:
 
 1. **Extract**
-   - Scrape job data from multiple platforms using Python scrapers.
 
+   - Scrape job data from multiple platforms using Python scrapers.
 2. **Load**
+
    - Store raw and processed files locally.
    - Load cleaned data into the **Bronze layer** of SQL Server.
-
 3. **Transform**
+
    - Use **dbt** to transform data **inside the warehouse**:
      - Bronze → Silver
      - Silver → Core
      - Core → Gold
-
 4. **Serve**
+
    - Expose analytics through:
      - Power BI dashboards
      - NL2SQL AI Assistant
@@ -37,6 +39,7 @@ The architecture follows a **Batch ELT (Extract → Load → Transform)** approa
 ---
 
 # 🏗️ Complete Architecture
+
 ![Architecture Diagram](docs/architecture/full_architecture.png)
 
 ## High-Level Architecture
@@ -65,36 +68,40 @@ END USERS
 # 🧱 Medallion Architecture
 
 ## 🥉 Bronze Layer
+
 Raw ingested data loaded from processed TSV files into SQL Server.
 
 ## 🥈 Silver Layer
+
 Standardized and cleaned data using dbt models.
 
 ## ⚙️ Core Layer
+
 Integrated and deduplicated business-ready job dataset.
 
 ## 🥇 Gold Layer
+
 Analytics-ready Star Schema optimized for BI and querying.
 
 ---
 
 # ⚙️ Technology Stack
 
-| Layer | Technologies |
-|---|---|
-| Orchestration | Apache Airflow |
-| Execution | CeleryExecutor |
-| Messaging | Redis |
-| Metadata DB | PostgreSQL |
-| Warehouse | Microsoft SQL Server |
-| Transformation | dbt |
-| Scraping | Python + JobSpy |
-| Backend API | FastAPI |
-| AI Layer | LangGraph + Gemini/Ollama |
-| Frontend | React + Vite + Tailwind |
-| Monitoring | Prometheus + Grafana + StatsD |
-| Containerization | Docker + Docker Compose |
-| BI | Power BI |
+| Layer            | Technologies                  |
+| ---------------- | ----------------------------- |
+| Orchestration    | Apache Airflow                |
+| Execution        | CeleryExecutor                |
+| Messaging        | Redis                         |
+| Metadata DB      | PostgreSQL                    |
+| Warehouse        | Microsoft SQL Server          |
+| Transformation   | dbt                           |
+| Scraping         | Python + JobSpy               |
+| Backend API      | FastAPI                       |
+| AI Layer         | LangGraph + Gemini/Ollama     |
+| Frontend         | React + Vite + Tailwind       |
+| Monitoring       | Prometheus + Grafana + StatsD |
+| Containerization | Docker + Docker Compose       |
+| BI               | Power BI                      |
 
 ---
 
@@ -102,21 +109,21 @@ Analytics-ready Star Schema optimized for BI and querying.
 
 ## Docker Services
 
-| Service | Role |
-|---|---|
-| Airflow API Server | Airflow Web UI |
-| Airflow Scheduler | DAG scheduling |
-| Airflow Worker | Task execution |
-| Airflow Triggerer | Deferred task handling |
-| Airflow DAG Processor | DAG parsing |
-| Airflow Init | Initialization & migrations |
-| PostgreSQL | Airflow metadata database |
-| Redis | Celery broker |
-| Flower | Celery monitoring |
-| Prometheus | Metrics collection |
-| Grafana | Dashboards & visualization |
-| StatsD Exporter | Airflow metrics exporter |
-| dbt-docs | dbt documentation server |
+| Service               | Role                        |
+| --------------------- | --------------------------- |
+| Airflow API Server    | Airflow Web UI              |
+| Airflow Scheduler     | DAG scheduling              |
+| Airflow Worker        | Task execution              |
+| Airflow Triggerer     | Deferred task handling      |
+| Airflow DAG Processor | DAG parsing                 |
+| Airflow Init          | Initialization & migrations |
+| PostgreSQL            | Airflow metadata database   |
+| Redis                 | Celery broker               |
+| Flower                | Celery monitoring           |
+| Prometheus            | Metrics collection          |
+| Grafana               | Dashboards & visualization  |
+| StatsD Exporter       | Airflow metrics exporter    |
+| dbt-docs              | dbt documentation server    |
 
 ---
 
@@ -209,7 +216,6 @@ http://localhost:8082
 
 ![Prometheus](docs/screenshots/prometheus/prometheus.png)
 
-
 ## Airflow Screenshots
 
 ![Airflow DAG](docs/screenshots/airflow/dag.png)
@@ -230,23 +236,30 @@ http://localhost:8082
 
 ## Power BI Dashboard Screenshots
 
-![PowerBi Dashbaord](docs/screenshots/powerbi/image.png)
----
-
 # 🤖 NL2SQL Assistant
 
 ## Backend Stack
+
 - FastAPI
 - LangGraph
 - LangChain
 - Gemini / Ollama
+---
+![Backend Screenshot](docs/screenshots/backend/backend.png)
+
+---
+
 
 ## Frontend Stack
+
 - React
 - Vite
 - TailwindCSS
 
+---
+![Frontend](docs/screenshots/frontend/frontend.png)
 ## Features
+
 - Natural Language → SQL
 - SQL Execution
 - Anti-Hallucination
@@ -257,6 +270,7 @@ http://localhost:8082
 # 📈 Power BI Dashboard
 
 The Gold layer feeds Power BI dashboards for:
+
 - Hiring trends
 - Top companies
 - Skill demand analysis
@@ -288,13 +302,13 @@ docker-compose -f docker/docker-compose.yaml up --build
 
 ## 3. Access Services
 
-| Service | URL |
-|---|---|
-| Airflow | http://localhost:8080 |
-| Grafana | http://localhost:3000 |
+| Service    | URL                   |
+| ---------- | --------------------- |
+| Airflow    | http://localhost:8080 |
+| Grafana    | http://localhost:3000 |
 | Prometheus | http://localhost:9090 |
-| dbt Docs | http://localhost:8082 |
-| Flower | http://localhost:5555 |
+| dbt Docs   | http://localhost:8082 |
+| Flower     | http://localhost:5555 |
 
 ---
 

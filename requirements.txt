@@ -1,0 +1,7 @@
+pdfplumber
+sentence-transformers
+pymongo
+torch
+python-dotenv
+fastapi        # optional, if you want an API later
+uvicorn        # optional

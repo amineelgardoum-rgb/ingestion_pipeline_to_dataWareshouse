@@ -24,8 +24,7 @@ logs/
 profiles.yml
 .user.yml
 .venv
-*.py
-*.pptx
+node_modules
 __pycache__
 
 docs/guide_dbt.pdf
