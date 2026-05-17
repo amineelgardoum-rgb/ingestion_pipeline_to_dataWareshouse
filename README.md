@@ -242,13 +242,14 @@ http://localhost:8082
 
 - FastAPI
 - LangGraph
-- LangChain
-- Gemini / Ollama
+- Sentence Transformers
+- MongoDB
+- Microsoft SQL Server
+
 ---
 ![Backend Screenshot](docs/screenshots/backend/backend.png)
 
 ---
-
 
 ## Frontend Stack
 
@@ -258,10 +259,13 @@ http://localhost:8082
 
 ---
 ![Frontend](docs/screenshots/frontend/frontend.png)
+
 ## Features
 
-- Natural Language → SQL
-- SQL Execution
+- Parse CVs and generate embeddings using Sentence Transformers
+- Store job embeddings in MongoDB
+- Perform semantic search using cosine similarity
+- Fetch additional job details from Microsoft SQL Server
 - Anti-Hallucination
 - Interactive Results
 
