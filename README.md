@@ -278,6 +278,8 @@ The Gold layer feeds Power BI dashboards for:
 - Remote vs onsite analysis
 
 ---
+![Power Bi Dashboard](docs/screenshots/powerbi/image.png)
+---
 
 # 🚦 Getting Started
 
